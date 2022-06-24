@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -34,32 +36,330 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
-    
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-
-    // Array.prototype.map()
-    // 2. Give us an array of the inventors first and last names
-
-    // Array.prototype.sort()
-    // 3. Sort the inventors by birthdate, oldest to youngest
-
+    /* my default way 
+    for (inventor in inventors) {
+      let birthYear = inventors[inventor].year;
+      if (birthYear >= 1500 && birthYear < 1600) {
+        console.log(inventors[inventor]);
+      }
+    }
+    */
+    /*using filter array method */
+    /*.filter() takes in a function, and passes each array
+       item into it. If the function returns true, the item
+       is then returned to filter as part of a new array.
+       in this case the variable `fifteen` receives an array
+       with two objects.
+    */
+    /*
+     const fifteen = inventors.filter(inventor =>
+       (inventor.year >= 1500 && inventor.year < 1600));
+     //    console.table(fifteen);
+     // Array.prototype.map()
+     // 2. Give us an array of the inventors first and last names
+     /*using the filter method ?
+       no..
+       filter is useless because I already want to return everything.
+       so I resort to my old loops
+ 
+     */
+    /*
+     const firstLast = [];
+     let fullName;
+     //for loop for an array: of vs. in 
+     //of -> value
+     //in -> index
+ 
+     for (inventor in inventors) {
+       //firstLast.push(inventors[inventor].first + ' ' +  inventors[inventor].last);
+       fullName = inventors[inventor].first + ' ' + inventors[inventor].last;
+       firstLast.push(fullName);
+     }
+ 
+     for (inventor of inventors) {
+       //firstLast.push(inventors[inventor].first + ' ' +  inventors[inventor].last);
+       fullName = inventor.first + ' ' + inventor.last;
+       firstLast.push(fullName);
+     }
+ 
+     //console.table(firstLast);
+ 
+     const fullName2 = inventors.map((inventor) => (
+       inventor.first + ' ' + inventor.last));
+     //console.table(fullName2);
+ 
+ 
+ 
+     // Array.prototype.sort()
+     // 3. Sort the inventors by birthdate, oldest to youngest
+ 
+     /*my attempt*/
+    //should I even bother? it will take me forever.
+    //I'll need to extract all the birthdates,
+    //make many comparisons
+    //assign a position in some sequence
+    //..
+    /* 
+     let sorted = [...inventors];
+ 
+     sorted.sort((inventor1, inventor2) => {
+       if (inventor1.year > inventor2.year) {
+         return 1;
+       }
+       else {
+         return -1;
+       }
+     });
+ 
+     sorted.sort((inventor1, inventor2) => (
+       (inventor1.year > inventor2.year) ? 1 : -1
+     ));
+ 
+     //console.table(sorted);
+     //sorting "in place" == change the array, not return a new
+     //one.
+ 
+     //since arrays are objects, copying them isn't as simple
+     //as re-assigning to a new variable.
+ 
+     //array, object and function are *reference values*
+ 
+     */
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    /*
+    trying .reduce() again
+
+    const yearsLivedTogether = inventors.reduce((total, inventor) =>
+      total += (inventor.passed - inventor.year), 0);
+    console.log(yearsLivedTogether);
+    */
+
+
+    /*
+     ---
+     yearsAllLived = 0;
+     for (inventor of inventors) {
+       yearsAllLived += (inventor.passed - inventor.year);
+     }
+     //console.log(yearsAllLived);
+     */
+
+    //let total = 0;
+    /*
+    const yearsAllLived2 = inventors.reduce(yearsHeLived, 0);
+    function yearsHeLived(total, inventor) {
+      //console.log(inventor);
+      return (total + (inventor.passed - inventor.year));
+    }
+
+    console.log(yearsAllLived2);
+    */
 
     // 5. Sort the inventors by years lived
+
+    /*
+    const fromYoungToOld = inventors
+    inventors.sort((a, b) => {
+      aYearsLived = (a.passed - a.year);
+      //console.log(aYearsLived);
+      bYearsLived = (b.passed - b.year);
+      //console.log(bYearsLived);
+      if (aYearsLived > bYearsLived) {
+        console.log('a: ' + aYearsLived + 'longer than b:' + bYearsLived);
+        return 1;
+      }
+      else {
+        console.log('b: ' + bYearsLived + ' longer than a: ' + aYearsLived);
+        return -1;
+      }
+    });
+    console.table(inventors);
+    */
+
+    // "simplifying"
+    /*
+    inventors.sort((a, b) => 
+      ((a.passed - a.year) > (b.passed - b.year)) ? 1 : -1
+    )
+
+    console.table(inventors);
+    */
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    //I can use chrome console, instead of importing the data here
+    //querySelectorAll gives me a nodelist with 1 element when
+    //targeting the container class of relevant data.
+    //is there something I gotta do to access child elements?
+    //maybe just select all the elements the boulevards
+    //share classes with 
+
+    //okay, I got 15 potentially-relevant nodes.
+
+    //now I'd like to extract the text of the links
+    //from each.
+
+    //I'll need to access object property names with the
+    //dot notation.
+
+    //finding the right one is a little annoying..
+
+    //.textContent works on a single node,
+    //but to use array methods I need it to be an array.
+    //toArray will turn methods into plain-text
+    //and I don't want to use regex...
+    //maybe:
+    //*create a new array
+    //*populate with textContent of each node
+    //*filter said array with .filter()
+    const boulNodes =
+      document.querySelectorAll('.mw-category-group li');
+    const nodeArray = [];
+    for (node of boulNodes) { //of, not in!
+      nodeArray.push(node.textContent);
+    }
+    //console.log(nodeArray);
+    nodeArray.filter((string) => string.includes('de'));
+
+
+    //need to target class -> list item with my selector
+
+    //now let's try it the video's way:
+    //he used two array methods: .map and .filter
+    //he strung together targetting of node elements
+    //(item = document.querySelector -> item.querySelectorAll ..)
+
+    //inspectin element
+    //class = mw-category-group, or containing class?
+    //let's try the smaller ones
+    /*
+    const groups = document.querySelectorAll('.mw-category-group');
+    const links = groups.querySelector('a'); //fails, not a function
+    console.log(links); //?
+    */
+    //copying him word for word..
+    /*
+    const category = document.querySelector('.mw-category');
+    const links = category.querySelectorAll('a');
+    */
+
+    //trying again alone.. to see what went wrong..
+    //one key difference: I started with query..ALL while he started
+    //with a singular querySelector (which happens to return multiple
+    //results??)
+    /*
+    const allLinks = document.querySelector('.mw-category.mw-category-columns');
+    const moreSpecific = Array.from(allLinks.querySelectorAll('a'));
+    const de = moreSpecific
+               .map((link) => link.textContent)
+               .filter((linkText) => (linkText.includes('de')));
+               */
+
+
+    //does querySelector return something different than 
+    //queryselectorAll ?
+
+    //can't use querySelectors on nodelists, only single nodes
+
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    //const sortedPeople = people.sort(); //sorts by last name
+    //maybe create an objects?
+    //maybe use sort + somehow access the first name?
+
+    //I need to extract the second word from the string
+    //Need to make it cut on the comma, and give me what's on the right
+
+    //can convert strings to arrays, and split on commas
+    //text.split(",");
+
+    /*
+    const sortedPeople = people.sort((a, b) => {
+      let aFirstName = a.split(",")[1];
+      let bFirstName = b.split(",")[1];
+      if (aFirstName > bFirstName) {
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    }
+    );
+    console.table(sortedPeople);
+    */
+
+    const sortedPeople = people.sort((a, b) => {
+      let [aLastName, aFirstName] = a.split(",");
+      let [bLastName, bFirstName] = b.split(",");
+      return (aFirstName > bFirstName ? 1 : -1);
+    });
+    //console.table(sortedPeople);
+
+
+
 
     // 8. Reduce Exercise
-    // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    // Sum up the occurencesTable of each of these
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+    /*
+    const occurencesTable = {};
+    data.reduce((trash, instance) => {
+      if (instance in occurencesTable) {
+        occurencesTable[instance] = instancesObj[instance] + 1;
+      }
+      else {
+        occurencesTable[instance] = 1;
+      }
+    }, 0);
+    console.log(occurencesTable);
+    */
+    //the problem probably wants me to count how many time each thing shows up:
+    //car: 5 etc.
+    //seems like an object with key~value pairs
+    //but I didn't even use the first variable (sum)
+    //and I should probably try to manipulate the array
+    //instead of making a new object.
+    /*
+    console.log(data.reduce((occurences, instance) => {
+      //if it's the first instance: initialize to 1
+      //if it's another occurences, add 1
+      //store outcome somewhere..
+      //maybe occurences should be an object after all..
+      return (instance + ":" + occurences)
+    }, 0));
+    const occurences = data.reduce((occurencesTable, instance) => {
+      if (typeof occurencesTable != 'object') {
+        occurencesTable = {};
+      }
+      if (instance in occurencesTable) {
+        occurencesTable[instance]++;
+      }
+      else {
+        occurencesTable[instance] = 1;
+      }
+      return occurencesTable;
+    }, 0);
+    */
+    const occurences = data.reduce((occurencesTable, instance) => {
+      if (typeof occurencesTable != 'object') {
+        occurencesTable = {};
+      }
+      if (instance in occurencesTable) {
+        occurencesTable[instance]++;
+      }
+      else {
+        occurencesTable[instance] = 1;
+      }
+      return occurencesTable;
+    }, 0);
+    console.table(occurences);
 
   </script>
 </body>
+
 </html>
